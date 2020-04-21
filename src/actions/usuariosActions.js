@@ -1,3 +1,4 @@
+import { TRAER_TODOS } from '../types/usuariosTypes';
 import axios from 'axios';
 
 export const traerTodos = () => async (dispatch) => {
@@ -6,7 +7,7 @@ export const traerTodos = () => async (dispatch) => {
   );
 
   dispatch({
-    type: 'traer_usuarios',
+    type: TRAER_TODOS,
     payload: respuesta.data,
   });
 };
