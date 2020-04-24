@@ -6,6 +6,7 @@ import {
   CAMBIO_TITULO,
   GUARDAR,
   ACTUALIZAR,
+  LIMPIAR,
 } from '../types/tareasTypes';
 import axios from 'axios';
 
@@ -121,5 +122,34 @@ export const cambioCheck = (usu_id, tar_id) => (dispatch, getState) => {
   dispatch({
     type: ACTUALIZAR,
     payload: actualizadas,
+  });
+};
+
+export const eliminar = (tar_id) => async (dispatch) => {
+  dispatch({
+    type: CARGANDO,
+  });
+
+  try {
+    const respuesta = await axios.delete(
+      `https://jsonplaceholder.typicode.com/todos/${tar_id}`
+    );
+    console.log(respuesta.data);
+    dispatch({
+      type: TRAER_TODAS,
+      payload: {},
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: ERROR,
+      payload: 'el servicio no está disponible',
+    });
+  }
+};
+
+export const limpiarForma = () => (dispatch) => {
+  dispatch({
+    type: LIMPIAR,
   });
 };
